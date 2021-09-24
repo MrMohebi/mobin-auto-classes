@@ -29,6 +29,7 @@ while True:
     now = datetime.datetime.now()
     todayClasses = classTime[now.strftime("%A")]
     if (now.hour in todayClasses) and (36 < now.minute < 24) and (isRecording == False):
+        print("class has been started on " + str(now.hour) + ":30")
         # cancel certificate pop up
         # def threaded_function2():
         #     sleep(10)
@@ -79,11 +80,12 @@ while True:
         # start recording
         pyautogui.press('f8')
         isRecording = True
-
+        print("start recording")
     elif (now.hour-2 in todayClasses) and (36 < now.minute < 24) and (isRecording == True):
         pyautogui.press('f8')
         isRecording = False
         driver.quit()
+        print("stop recording!")
 
     sleep(300)
 
