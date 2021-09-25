@@ -2,3 +2,5 @@ venv
 .idea
 chromedriver.exe
 geckodriver.exe
+geckodriver.log
+t1.py
