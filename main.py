@@ -4,10 +4,10 @@ import datetime
 import pyautogui
 from time import sleep
 
-
 BASE_URL="https://mobin.uk.ac.ir/"
 USERNAME="testUsername"
 PASSWORD="testPassword"
+PROFILE_PATH = webdriver.FirefoxProfile("C:\\Users\\mrm\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\5icm3xnb.for-selenium")
 
 classTime = {
     "Saturday":[9,13, 15],
@@ -42,7 +42,7 @@ while True:
             # thread2.start()
 
             # open site
-            driver = webdriver.Firefox()
+            driver = webdriver.Firefox(firefox_profile=PROFILE_PATH)
             driver.get(BASE_URL)
             driver.maximize_window()
 
