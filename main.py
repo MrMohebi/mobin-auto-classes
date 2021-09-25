@@ -29,7 +29,7 @@ while True:
     now = datetime.datetime.now()
     todayClasses = classTime[now.strftime("%A")]
     try:
-        if (now.hour in todayClasses) and (36 > now.minute > 24) and (isRecording == False):
+        if (now.hour in todayClasses) and (46 > now.minute > 30) and (isRecording == False):
             print("class has been started on " + str(now.hour) + ":30")
             # cancel certificate pop up
             # def threaded_function2():
