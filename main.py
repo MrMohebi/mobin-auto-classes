@@ -62,11 +62,15 @@ while True:
             enterClass = driver.find_element_by_link_text('ورود')
             enterClass.click()
 
+            sleep(20)
+
             #change default window to new tab(select open in web or app)
             chwd = driver.window_handles
             for w in chwd:
                 if w != mobinWindowId:
                     driver.switch_to.window(w)
+
+            sleep(20)
 
             # open class in web
             driver.execute_script("openInBrowser()")
