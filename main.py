@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 import datetime
 import pyautogui
 from time import sleep
+import re
 
 BASE_URL="https://mobin.uk.ac.ir/"
 USERNAME="testUsername"
@@ -91,6 +92,23 @@ while True:
             isRecording = False
             driver.quit()
             print("stop recording!")
+
+        #check class
+        else:
+            try:
+                # if there is less than 4 student in class, close class
+                driver.switch_to.frame(driver.find_element_by_id("html-meeting-frame"))
+                participantsSpan = driver.find_elements_by_class_name("customAttendeeGroupText--2rjYZtoo93MfQO6S0VwQbr")
+                participantsNumber = int(list(filter(None, re.split('\)|\(|\s', participantsSpan[2].text)))[1])
+                if(now.hour in todayClasses) and (59 > now.minute > 50) and (isRecording == True) and (participantsNumber < 5):
+                    pyautogui.press('f8')
+                    isRecording = False
+                    driver.quit()
+                    print("stop recording!")
+                    print("there is no student in class")
+            except Exception as e:
+                print(str(e))
+
     except:
         print(now.strftime("%b %d %I:%M:%S ") + "an error occurred")
 
