@@ -86,7 +86,7 @@ while True:
             pyautogui.press('f8')
             isRecording = True
             print("start recording")
-        elif (now.hour-2 in todayClasses) and (38 < now.minute < 55) and (isRecording == True):
+        elif (now.hour-2 in todayClasses) and (24 < now.minute < 30) and (isRecording == True):
             pyautogui.press('f8')
             isRecording = False
             driver.quit()
