@@ -95,20 +95,34 @@ while True:
 
         #check class
         else:
-            # if there is less than 4 student in class, close class
             if isRecording:
-                try:
-                    driver.switch_to.frame(driver.find_element_by_id("html-meeting-frame"))
-                    participantsSpan = driver.find_elements_by_class_name("customAttendeeGroupText--2rjYZtoo93MfQO6S0VwQbr")
-                    participantsNumber = int(list(filter(None, re.split('\)|\(|\s', participantsSpan[2].text)))[1])
-                    if(now.hour in todayClasses) and (59 > now.minute > 50) and (participantsNumber < 5):
-                        pyautogui.press('f8')
-                        isRecording = False
-                        driver.quit()
-                        print("stop recording!")
-                        print("there is no student in class")
-                except:
-                    pass
+                driver.switch_to.frame(driver.find_element_by_id("html-meeting-frame"))
+                # check class after 20 minutes
+                if (now.hour in todayClasses) and (59 > now.minute > 50):
+                    # if there is less than 4 student in class, close class
+                    try:
+                        participantsSpan = driver.find_elements_by_class_name("customAttendeeGroupText--2rjYZtoo93MfQO6S0VwQbr")
+                        participantsNumber = int(list(filter(None, re.split('\)|\(|\s', participantsSpan[2].text)))[1])
+                        if participantsNumber < 5:
+                            pyautogui.press('f8')
+                            isRecording = False
+                            driver.quit()
+                            print("stop recording!")
+                            print("there is no student in class")
+                    except:
+                        pass
+
+                    #if class didn't start, close and stop recording
+                    try:
+                        waitingMessage = driver.find_element_by_id("waitingScreenMessage")
+                        if waitingMessage.text.len() > 1:
+                            pyautogui.press('f8')
+                            isRecording = False
+                            driver.quit()
+                            print("stop recording!")
+                            print("class didn't start")
+                    except:
+                        pass
 
     except:
         print(now.strftime("%b %d %I:%M:%S ") + "an error occurred")
