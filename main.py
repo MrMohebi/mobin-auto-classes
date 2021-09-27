@@ -25,6 +25,20 @@ isRecording = False
 # selenium web driver holder
 driver = None
 
+
+def stopRecording(msg=None):
+    global isRecording, driver
+    try:
+        pyautogui.press('f8')
+        isRecording = False
+        driver.quit()
+        print("stop recording!")
+        if msg:
+            print(msg)
+        return True
+    except:
+        return False
+
 # check each 5 min
 while True:
     now = datetime.datetime.now()
@@ -88,10 +102,7 @@ while True:
             isRecording = True
             print("start recording")
         elif (now.hour-2 in todayClasses) and (24 < now.minute < 30) and (isRecording == True):
-            pyautogui.press('f8')
-            isRecording = False
-            driver.quit()
-            print("stop recording!")
+            stopRecording()
 
         #check class
         else:
@@ -104,11 +115,7 @@ while True:
                         participantsSpan = driver.find_elements_by_class_name("customAttendeeGroupText--2rjYZtoo93MfQO6S0VwQbr")
                         participantsNumber = int(list(filter(None, re.split('\)|\(|\s', participantsSpan[2].text)))[1])
                         if participantsNumber < 5:
-                            pyautogui.press('f8')
-                            isRecording = False
-                            driver.quit()
-                            print("stop recording!")
-                            print("there is no student in class")
+                            stopRecording("there is no student in class")
                     except:
                         pass
 
@@ -116,11 +123,7 @@ while True:
                     try:
                         waitingMessage = driver.find_element_by_id("waitingScreenMessage")
                         if waitingMessage.text.len() > 1:
-                            pyautogui.press('f8')
-                            isRecording = False
-                            driver.quit()
-                            print("stop recording!")
-                            print("class didn't start")
+                            stopRecording("class didn't start")
                     except:
                         pass
 
