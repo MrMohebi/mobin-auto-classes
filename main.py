@@ -103,6 +103,7 @@ def enterRecordClass(now:datetime)->bool:
         return True
     except Exception as e:
         print(now.strftime("%b %d %I:%M:%S ") + "OpeningClass And Record: " + str(e))
+        driver.quit()
     return False
 
 
