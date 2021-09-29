@@ -23,8 +23,11 @@ classTime = {
 isRecording = False
 
 # selenium web driver holder
-driver = webdriver.Firefox(firefox_profile=PROFILE_PATH)
-driver.quit()
+driver = None
+
+# # uncomment this just in dev mode for warning handling in phpstorm
+# driver = webdriver.Firefox(firefox_profile=PROFILE_PATH)
+# driver.quit()
 
 
 def stopRecording(msg=None)->bool:
